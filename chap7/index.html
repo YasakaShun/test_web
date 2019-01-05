@@ -18,14 +18,54 @@
     </header>
 
     <div class="container">
-        <div id="img_unit">
-            <div class="photo">
-                <img src="img/img01.jpg" />
-                <div class="inner"><p>comment<span>user</span></p></div>
-            </div>
-        </div>
+        <div id="img_unit" />
     </div> <!-- container -->
 
+    <script>
+        var images = [
+        {
+            "path": "img/img01.jpg",
+            "name": "name1",
+            "caption": "comment1"
+        },
+        {
+            "path": "img/img02.jpg",
+            "name": "name2",
+            "caption": "comment2"
+        },
+        {
+            "path": "img/img03.jpg",
+            "name": "name3",
+            "caption": "comment3"
+        },
+        {
+            "path": "img/img04.jpg",
+            "name": "name4",
+            "caption": "comment4"
+        }
+        ];
+
+        var addImage = function(index)
+        {
+            var img = document.createElement("img");
+            img.setAttribute("src", images[index].path);
+
+            var caption = document.createElement("div");
+            caption.className = "inner";
+            caption.innerHTML = '<p>' + images[index].caption + '<span>' + images[index].name + '</span></p>';
+
+            var photo = document.createElement("div");
+            photo.className = "photo";
+            photo.appendChild(img);
+            photo.appendChild(caption);
+
+            document.getElementById("img_unit").appendChild(photo);
+        }
+
+        for (var i = 0; i < images.length; ++i) {
+            addImage(i);
+        }
+    </script>
 </body>
 
 </html>
