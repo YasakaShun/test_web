@@ -17,9 +17,14 @@
         <h1>さかすのページ(工事中)</h1>
     </header>
 
+    <script src="js/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js"></script>
+
     <div>
         <h2>GitHub情報</h2>
-        <div id='github'/>
+        <div id='profile'></div>
+        <div id='repos'></div>
+        <canvas id="myChart"></canvas>
     </div>
 
     <div>
@@ -33,28 +38,45 @@
         </ul>
     </div>
 
-    <script src="js/jquery.min.js"></script>
     <script>
         // user
         $(function () {
             $.getJSON('https://api.github.com/users/YasakaShun').then(function (user) {
-                $('#github').append('<img src="' + user.avatar_url + '" width="64">');
-                $('#github').append('<p>URL: <a href="' + user.html_url + '">' + user.html_url + '</a></p>');
+                $('#profile').append('<h3>プロフィール</h3>');
+                $('#profile').append('<img src="' + user.avatar_url + '" width="64">');
+                $('#profile').append('<p>URL: <a href="' + user.html_url + '">' + user.html_url + '</a></p>');
             });
         });
 
         // repos
         $(function () {
             $.getJSON('https://api.github.com/users/YasakaShun/repos').then(function (repos) {
-                $('<div id="repos"></div>')
-                    .append('<h3 id="repos">プロジェクト</h3>')
-                    .appendTo('#github');
+                $('#repos').append('<h3 id="repos">プロジェクト</h3>');
                 $('<ul id="repos_list"></ul>').appendTo('#repos');
                 for (var i = 0; i < repos.length; ++i) {
                     $('#repos_list').append('<li><a href="' + repos[i].html_url + '">' + repos[i].name + '</a>: ' + repos[i].description + '</li>');
                 }
             });
         });
+
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
+                datasets: [
+                    {
+                        label: 'apples',
+                        data: [12, 19, 3, 17, 6, 3, 7],
+                        backgroundColor: "rgba(153,255,51,0.4)"
+                    },
+                    {
+                        label: 'oranges',
+                        data: [2, 29, 5, 5, 2, 3, 10],
+                        backgroundColor: "rgba(255,153,0,0.4)"
+                    }]
+                }
+            });
     </script>
 </body>
 
