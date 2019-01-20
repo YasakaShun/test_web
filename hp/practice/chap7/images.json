@@ -1,0 +1,22 @@
+[
+    {
+        "path": "img/img01.jpg",
+        "name": "name1",
+        "caption": "comment1"
+    },
+    {
+        "path": "img/img02.jpg",
+        "name": "name2",
+        "caption": "comment2"
+    },
+    {
+        "path": "img/img03.jpg",
+        "name": "name3",
+        "caption": "comment3"
+    },
+    {
+        "path": "img/img04.jpg",
+        "name": "name4",
+        "caption": "comment4"
+    }
+]

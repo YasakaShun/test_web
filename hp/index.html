@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width"/>
+
+    <title>トップページ</title>
+
+    <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans+Condensed:300" rel="stylesheet"> -->
+    <link rel="stylesheet" href="css/style.css"/>
+</head>
+
+<body>
+
+    <header>
+        <h1>さかすのページ(工事中)</h1>
+    </header>
+
+    <div>
+        <h2>GitHub情報</h2>
+        <div id='github'/>
+    </div>
+
+    <div>
+        <h2>練習用ページ</h2>
+        <ul>
+            <li><a href="./practice/chap2/html/index.html">入会申込み</a></li>
+            <li><a href="./practice/chap4/index.html">申し込みフォーム</a></li>
+            <li><a href="./practice/chap5/index.html">日付表示</a></li>
+            <li><a href="./practice/chap6/index.html">タイマー</a></li>
+            <li><a href="./practice/chap7/index.html">画像表示</a></li>
+        </ul>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script>
+        // user
+        $(function () {
+            $.getJSON('https://api.github.com/users/YasakaShun').then(function (user) {
+                $('#github').append('<img src="' + user.avatar_url + '" width="64">');
+                $('#github').append('<p>URL: <a href="' + user.html_url + '">' + user.html_url + '</a></p>');
+            });
+        });
+
+        // repos
+        $(function () {
+            $.getJSON('https://api.github.com/users/YasakaShun/repos').then(function (repos) {
+                $('<div id="repos"></div>')
+                    .append('<h3 id="repos">プロジェクト</h3>')
+                    .appendTo('#github');
+                $('<ul id="repos_list"></ul>').appendTo('#repos');
+                for (var i = 0; i < repos.length; ++i) {
+                    $('#repos_list').append('<li><a href="' + repos[i].html_url + '">' + repos[i].name + '</a>: ' + repos[i].description + '</li>');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>
